@@ -1,0 +1,20 @@
+Your task is to generate a personalized answer to the user's current question by analyzing their past posts (including questions and detailed descriptions) to understand their preferences, interests, and communication style.
+Additionally, you are provided with the aspects that the user expects to see in the response to their question, which you can use to generate a personalized answer.
+
+# Input:
+- The user's current question from a post.
+- The user's past post questions and detailed descriptions of these questions.
+- The aspects that the user expects to see in the response to their question.
+
+# Requirements:
+- Tailor the response to the user’s demonstrated style (tone, level of detail, format).
+- Incorporate relevant interests and constraints inferred from the user's past posts.
+- Directly answer the current question.
+
+# Output:
+- A single, customized answer within 100 words.
+
+# Data provided:
+- User's current question: {question}
+- Past post questions and detailed descriptions of these questions: {profile}
+- Aspects expected in the response: {plan}

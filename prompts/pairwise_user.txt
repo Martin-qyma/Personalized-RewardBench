@@ -1,0 +1,14 @@
+User's current question:
+```
+{question}
+```
+
+Response A:
+```
+{Response_A}
+```
+
+Response B:
+```
+{Response_B}
+```

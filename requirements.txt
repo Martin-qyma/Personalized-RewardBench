@@ -1,0 +1,23 @@
+# Core ML
+torch>=2.0.0
+transformers>=4.40.0
+datasets>=2.18.0
+
+# Inference
+vllm>=0.4.0
+
+# PPO training (reward server)
+fastapi
+uvicorn
+requests
+
+# PPO training (verl framework)
+# Install separately: https://github.com/volcengine/verl
+# pip install verl
+
+# Logging
+wandb
+
+# Utilities
+numpy
+tqdm

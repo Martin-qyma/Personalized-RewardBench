@@ -1,0 +1,29 @@
+Your task is to assess the answer to the user's current question based on a list of aspects.
+
+# Input:
+- The user's current question.
+- The answer to be evaluated.
+- A list of aspects to assess.
+
+# Requirements:
+- For each aspect, assess how well the answer addresses that aspect with respect to the user’s question.
+- For each aspect, assign a match_score as follows:
+    0 = The answer does not cover this aspect.
+    1 = The answer somewhat covers this aspect.
+    2 = The answer covers this aspect very well.
+- Generate a list of scores for each aspect.
+- Do NOT generate anything else beside the list.
+
+# Output:
+- Return a list of match_score values, in the same order as the aspects.
+- Do NOT include anything else, only the list of integers.
+
+# Data provided:
+- User's current question:
+{question}
+- The answer to be evaluated:
+{answer}
+- Aspects to refer:
+{aspects}
+
+Generate the score list following above instructions.
