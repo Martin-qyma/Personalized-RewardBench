@@ -22,11 +22,18 @@ personalized-rewardbench/
 
 ---
 
-## Installation
+## Dataset Structure
 
-```bash
-pip install -r requirements.txt
-```
+| Key | Type | Description |
+| :--- | :--- | :--- |
+| `id` | string | Unique instance identifier. |
+| `question` | string | Target question prompting the response. |
+| `profile` | list[dict] | User's past question history (contains `id`, `category`, `text`). Can be optionally included in the prompt so that RMs can infer the user's preferences from past history. |
+| `rubric_aspects` | list[dict] | Scoring criteria extracted from the `narrative` (`aspect`, `evidence`, `reason`). Strictly **excluded from RM input** to prevent leakage of the scoring standard. |
+| `narrative` | string | User's supplementary explanation of the question. Strictly **excluded from RM input** to prevent leakage of the scoring standard. |
+| `category` | string | Topic domain of the question and profile. |
+| `chosen` | string | Preferred, high-quality generated response. |
+| `rejected` | string | Suboptimal generated response used as a negative contrast. |
 
 ---
 
@@ -37,6 +44,8 @@ Evaluate any reward model on the benchmark using **pointwise** or **pairwise** c
 ### Pointwise
 
 A **discriminative** reward model (`AutoModelForSequenceClassification`) scores each response independently. Reports chosen win rate and average score gap.
+* **Input:** `question` (+ `profile`) + `chosen` / `rejected`
+* **Output:** scalar reward score
 
 ```
 python evaluation/pointwise.py --model <reward_model> --subset <subset_name> --gpu <gpu_ids>
@@ -44,7 +53,10 @@ python evaluation/pointwise.py --model <reward_model> --subset <subset_name> --g
 
 ### Pairwise
 
-A **generative LLM judge** compares both responses side-by-side. Response positions (A/B) are randomly shuffled per query to mitigate position bias. Reports accuracy vs ground-truth `chosen` labels and position bias.
+A **generative LLM judge** compares both responses side-by-side. Response positions (A/B) are randomly shuffled per query to mitigate position bias. Reports accuracy of successful preference predictions.
+
+* **Input:** `question` (+ `profile`) + `chosen` + `rejected`
+* **Output:** preference label
 
 ```
 python evaluation/pairwise.py --model <judge_model> --subset <subset_name> --tensor-parallel-size <tp_size> --gpu <gpu_ids>
